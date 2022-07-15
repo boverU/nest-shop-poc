@@ -17,7 +17,7 @@ import { DatabaseModule } from './database/database.module';
       })
     }),
     PostsModule,
-    DatabaseModule
+    DatabaseModule,
   ],
   controllers: [],
   providers: [],
