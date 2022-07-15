@@ -26,6 +26,6 @@ import { AuthenticationModule } from './authentication/authentication.module';
     AuthenticationModule,
   ],
   controllers: [],
-  providers: [UsersService, AuthenticationService],
+  providers: [],
 })
 export class AppModule {}
