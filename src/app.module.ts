@@ -1,15 +1,14 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
 import { PostsModule } from './posts/posts.module';
-import { DatabaseModule } from './database/database.module';
+import { ConfigModule } from '@nestjs/config';
 import * as Joi from '@hapi/joi';
-import { UsersService } from './users/users.service';
-import { UsersModule } from './users/users.module';
-import { AuthenticationService } from './authentication/authentication.service';
+import { DatabaseModule } from './database/database.module';
 import { AuthenticationModule } from './authentication/authentication.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
+    PostsModule,
     ConfigModule.forRoot({
       validationSchema: Joi.object({
         POSTGRES_HOST: Joi.string().required(),
@@ -17,15 +16,16 @@ import { AuthenticationModule } from './authentication/authentication.module';
         POSTGRES_USER: Joi.string().required(),
         POSTGRES_PASSWORD: Joi.string().required(),
         POSTGRES_DB: Joi.string().required(),
+        JWT_SECRET: Joi.string().required(),
+        JWT_EXPIRATION_TIME: Joi.string().required(),
         PORT: Joi.number(),
-      }),
+      })
     }),
-    PostsModule,
     DatabaseModule,
-    UsersModule,
     AuthenticationModule,
+    UsersModule,
   ],
   controllers: [],
   providers: [],
 })
-export class AppModule {}
+export class AppModule { }
