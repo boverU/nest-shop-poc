@@ -7,20 +7,25 @@ import CreateUserDto from './dto/createUser.dto';
 
 @Injectable()
 export class UsersService {
-    constructor(@InjectRepository(User)
-    private usersRepository: Repository<User>) { }
+  constructor(
+    @InjectRepository(User)
+    private usersRepository: Repository<User>,
+  ) {}
 
-    async getByEmail(email: string) {
-        const user = await this.usersRepository.findBy({ email });
-        if (user) {
-            return user
-        }
-        return new HttpException("User with such email does't exist", HttpStatus.BAD_REQUEST)
+  async getByEmail(email: string) {
+    const user = await this.usersRepository.findBy({ email });
+    if (user) {
+      return user;
     }
+    return new HttpException(
+      "User with such email does't exist",
+      HttpStatus.BAD_REQUEST,
+    );
+  }
 
-    async create(user: CreateUserDto) {
-        const newUser = await this.usersRepository.create(user);
-        await this.usersRepository.save(newUser);
-        return newUser;
-    }
+  async create(user: CreateUserDto) {
+    const newUser = await this.usersRepository.create(user);
+    await this.usersRepository.save(newUser);
+    return newUser;
+  }
 }

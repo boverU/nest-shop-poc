@@ -16,7 +16,7 @@ import { UsersModule } from './users/users.module';
         POSTGRES_PASSWORD: Joi.string().required(),
         POSTGRES_DB: Joi.string().required(),
         PORT: Joi.number(),
-      })
+      }),
     }),
     PostsModule,
     DatabaseModule,
@@ -25,4 +25,4 @@ import { UsersModule } from './users/users.module';
   controllers: [],
   providers: [UsersService],
 })
-export class AppModule { }
+export class AppModule {}
