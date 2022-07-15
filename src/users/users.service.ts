@@ -13,11 +13,11 @@ export class UsersService {
   ) {}
 
   async getByEmail(email: string) {
-    const user = await this.usersRepository.findBy({ email });
+    const user = await this.usersRepository.findOne({ where: { email } });
     if (user) {
       return user;
     }
-    return new HttpException(
+    throw new HttpException(
       "User with such email does't exist",
       HttpStatus.BAD_REQUEST,
     );
