@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { PostsModule } from './posts/posts.module';
-import * as Joi from '@hapi/joi';
 import { DatabaseModule } from './database/database.module';
+import * as Joi from '@hapi/joi';
 import { UsersService } from './users/users.service';
 import { UsersModule } from './users/users.module';
 
@@ -25,4 +25,4 @@ import { UsersModule } from './users/users.module';
   controllers: [],
   providers: [UsersService],
 })
-export class AppModule {}
+export class AppModule { }
