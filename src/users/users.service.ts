@@ -10,7 +10,7 @@ export class UsersService {
   constructor(
     @InjectRepository(User)
     private usersRepository: Repository<User>,
-  ) { }
+  ) {}
 
   async getByEmail(email: string) {
     const user = await this.usersRepository.findOne({ where: { email } });
@@ -34,6 +34,9 @@ export class UsersService {
     if (user) {
       return user;
     }
-    throw new HttpException('User with this id does not exist', HttpStatus.NOT_FOUND);
+    throw new HttpException(
+      'User with this id does not exist',
+      HttpStatus.NOT_FOUND,
+    );
   }
 }

@@ -15,7 +15,7 @@ import JwtAuthenticationGuard from 'src/authentication/jwt-authentication.guard'
 
 @Controller('posts')
 export default class PostsController {
-  constructor(private readonly postsService: PostsService) { }
+  constructor(private readonly postsService: PostsService) {}
 
   @Get()
   getAllPosts() {

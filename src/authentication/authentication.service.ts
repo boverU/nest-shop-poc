@@ -9,10 +9,11 @@ import { TokenPayload } from './tokenPayload.interface';
 
 @Injectable()
 export class AuthenticationService {
-  constructor(private readonly usersService: UsersService,
+  constructor(
+    private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
-    private readonly configService: ConfigService
-  ) { }
+    private readonly configService: ConfigService,
+  ) {}
 
   public async register(registrationData: RegisterDto) {
     const hashedPassword = await bcrypt.hash(registrationData.password, 10);
@@ -67,11 +68,16 @@ export class AuthenticationService {
     }
   }
 
-
   public getCookieWithJwtToken(userId: number) {
     const payload: TokenPayload = { id: userId };
     const token = this.jwtService.sign(payload);
-    return `Authentication=${token}; HttpOnly; Path=/; Max-Age=${this.configService.get('JWT_EXPIRATION_TIME')}`;
+    return `Authentication=${token}; HttpOnly; Path=/; Max-Age=${this.configService.get(
+      'JWT_EXPIRATION_TIME',
+    )}`;
+  }
+
+  public getCookieForLogout() {
+    return `Authentication=; HttpOnly; Path=/; Max-Age=`;
   }
 }
 {

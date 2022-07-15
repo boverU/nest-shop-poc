@@ -19,7 +19,7 @@ import { UsersModule } from './users/users.module';
         JWT_SECRET: Joi.string().required(),
         JWT_EXPIRATION_TIME: Joi.string().required(),
         PORT: Joi.number(),
-      })
+      }),
     }),
     DatabaseModule,
     AuthenticationModule,
@@ -28,4 +28,4 @@ import { UsersModule } from './users/users.module';
   controllers: [],
   providers: [],
 })
-export class AppModule { }
+export class AppModule {}
