@@ -52,12 +52,12 @@ export class AuthenticationService {
   }
 
   private async verifyPassword(
-    plaintTextPassword: string,
+    plainTextPassword: string,
     hashedPassword: string,
   ) {
     const isPasswordMatching = await bcrypt.compare(
+      plainTextPassword,
       hashedPassword,
-      plaintTextPassword,
     );
     if (!isPasswordMatching) {
       throw new HttpException(
@@ -69,7 +69,7 @@ export class AuthenticationService {
 
 
   public getCookieWithJwtToken(userId: number) {
-    const payload: TokenPayload = { userId };
+    const payload: TokenPayload = { id: userId };
     const token = this.jwtService.sign(payload);
     return `Authentication=${token}; HttpOnly; Path=/; Max-Age=${this.configService.get('JWT_EXPIRATION_TIME')}`;
   }
