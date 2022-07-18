@@ -28,9 +28,11 @@ import { ExceptionsLoggerFilter } from './utils/exceptionsLogger.filter';
     UsersModule,
   ],
   controllers: [],
-  providers: [{
-    provide: APP_FILTER,
-    useClass: ExceptionsLoggerFilter,
-  }],
+  providers: [
+    {
+      provide: APP_FILTER,
+      useClass: ExceptionsLoggerFilter,
+    },
+  ],
 })
-export class AppModule { }
+export class AppModule {}
