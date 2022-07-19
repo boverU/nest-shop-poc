@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import CreatePostDto from './dto/createPost.dto';
 import Post from './post.entity';
-import UpdatePostDto from './dto/updatePost.dto';
+import { UpdatePostDto } from './dto/updatePost.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { PostNotFoundException } from './exception/postNotFound.exception';

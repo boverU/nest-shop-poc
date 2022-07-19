@@ -15,6 +15,7 @@ import JwtAuthenticationGuard from 'src/authentication/jwt-authentication.guard'
 import { FindOneParams } from 'src/utils/findOneParams';
 
 @Controller('posts')
+@UseGuards(JwtAuthenticationGuard)
 export default class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
@@ -29,7 +30,6 @@ export default class PostsController {
   }
 
   @Post()
-  @UseGuards(JwtAuthenticationGuard)
   async createPost(@Body() post: CreatePostDto) {
     return this.postsService.createPost(post);
   }
