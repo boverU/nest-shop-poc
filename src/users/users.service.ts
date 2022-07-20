@@ -39,4 +39,8 @@ export class UsersService {
       HttpStatus.NOT_FOUND,
     );
   }
+
+  async getAllUsers() {
+    return await this.usersRepository.find();
+  }
 }

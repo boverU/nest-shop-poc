@@ -1,4 +1,13 @@
-import { IsEmail, IsString, IsNotEmpty, MinLength } from 'class-validator';
+import { Type } from 'class-transformer';
+import {
+  IsEmail,
+  IsString,
+  IsNotEmpty,
+  MinLength,
+  ValidateNested,
+  isNotEmpty,
+} from 'class-validator';
+import AddressDto from 'src/users/dto/address.dto';
 
 export class RegisterDto {
   @IsEmail()
@@ -12,6 +21,11 @@ export class RegisterDto {
   @IsNotEmpty()
   @MinLength(2)
   password: string;
+
+  @Type(() => AddressDto)
+  @ValidateNested()
+  @IsNotEmpty()
+  address: AddressDto;
 }
 
 export default RegisterDto;
