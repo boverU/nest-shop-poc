@@ -9,4 +9,9 @@ export default class UsersController {
   getUsers() {
     return this.usersService.getAllUsers();
   }
+
+  @Get('addresses')
+  getAddresses() {
+    return this.usersService.getAllAddresses();
+  }
 }

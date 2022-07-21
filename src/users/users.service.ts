@@ -4,12 +4,15 @@ import { Repository } from 'typeorm';
 import User from './user.entity';
 import { HttpException, HttpStatus } from '@nestjs/common';
 import CreateUserDto from './dto/createUser.dto';
+import Address from './address.entity';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User)
     private usersRepository: Repository<User>,
+    @InjectRepository(Address)
+    private addressRepository: Repository<Address>,
   ) {}
 
   async getByEmail(email: string) {
@@ -42,5 +45,9 @@ export class UsersService {
 
   async getAllUsers() {
     return await this.usersRepository.find();
+  }
+
+  async getAllAddresses() {
+    return await this.addressRepository.find({ relations: { user: true } });
   }
 }
