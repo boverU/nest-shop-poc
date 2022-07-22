@@ -22,7 +22,7 @@ class Post {
   public category?: string;
 
   @ManyToOne(() => User, (author: User) => author.posts)
-  public author: string;
+  public author: User;
 }
 
 export default Post;

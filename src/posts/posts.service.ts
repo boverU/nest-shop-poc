@@ -10,20 +10,21 @@ import { UpdatePostDto } from './dto/updatePost.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { PostNotFoundException } from './exception/postNotFound.exception';
+import User from 'src/users/user.entity';
 
 @Injectable()
 export default class PostsService {
   constructor(
     @InjectRepository(Post)
     private postsRepository: Repository<Post>,
-  ) {}
+  ) { }
 
   getAllPosts() {
-    return this.postsRepository.find();
+    return this.postsRepository.find({ relations: { author: true } });
   }
 
   async getPostById(id: number) {
-    const post = await this.postsRepository.findOne({ where: { id } });
+    const post = await this.postsRepository.findOne({ where: { id }, relations: { author: true } });
     if (post) {
       return post;
     }
@@ -31,15 +32,18 @@ export default class PostsService {
     throw new PostNotFoundException(id);
   }
 
-  async createPost(post: CreatePostDto) {
-    const newPost = await this.postsRepository.create(post);
+  async createPost(post: CreatePostDto, user: User) {
+    const newPost = await this.postsRepository.create({
+      ...post,
+      author: user
+    });
     await this.postsRepository.save(newPost);
     return newPost;
   }
 
   async updatePost(id: number, post: UpdatePostDto) {
     await this.postsRepository.update(id, post);
-    const updatedPost = await this.postsRepository.findOne({ where: { id } });
+    const updatedPost = await this.postsRepository.findOne({ where: { id }, relations: { author: true } });
     if (updatedPost) {
       return updatedPost;
     }
