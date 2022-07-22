@@ -19,7 +19,7 @@ import RequestWithUser from 'src/authentication/requestWithUser.interface';
 @Controller('posts')
 @UseGuards(JwtAuthenticationGuard)
 export default class PostsController {
-  constructor(private readonly postsService: PostsService) { }
+  constructor(private readonly postsService: PostsService) {}
 
   @Get()
   getAllPosts() {

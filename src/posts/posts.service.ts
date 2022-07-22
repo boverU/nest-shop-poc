@@ -17,14 +17,19 @@ export default class PostsService {
   constructor(
     @InjectRepository(Post)
     private postsRepository: Repository<Post>,
-  ) { }
+  ) {}
 
   getAllPosts() {
-    return this.postsRepository.find({ relations: { author: true } });
+    return this.postsRepository.find({
+      relations: { author: true, categories: true },
+    });
   }
 
   async getPostById(id: number) {
-    const post = await this.postsRepository.findOne({ where: { id }, relations: { author: true } });
+    const post = await this.postsRepository.findOne({
+      where: { id },
+      relations: { author: true },
+    });
     if (post) {
       return post;
     }
@@ -35,7 +40,7 @@ export default class PostsService {
   async createPost(post: CreatePostDto, user: User) {
     const newPost = await this.postsRepository.create({
       ...post,
-      author: user
+      author: user,
     });
     await this.postsRepository.save(newPost);
     return newPost;
@@ -43,7 +48,10 @@ export default class PostsService {
 
   async updatePost(id: number, post: UpdatePostDto) {
     await this.postsRepository.update(id, post);
-    const updatedPost = await this.postsRepository.findOne({ where: { id }, relations: { author: true } });
+    const updatedPost = await this.postsRepository.findOne({
+      where: { id },
+      relations: { author: true },
+    });
     if (updatedPost) {
       return updatedPost;
     }
